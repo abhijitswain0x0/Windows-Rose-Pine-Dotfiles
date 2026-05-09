@@ -1,15 +1,15 @@
 # Windows Rose Pine Dotfiles
 
-A personalized dotfiles setup for Windows featuring the Rose Pine color theme across Neovim, Wezterm, Fastfetch, and CAVA.
+A personalized dotfiles setup for Windows featuring the Rose Pine color theme across Neovim, Starship prompt, Fastfetch, and CAVA.
 
 ## Structure
 
 ```
 .
 ├── nvim/          Neovim configuration (NvChad v2.5)
-├── wezterm/       Wezterm terminal emulator config
-├── fastfetch/    Fastfetch system info display
-└── cava/         CAVA audio visualizer
+├── starship/      Starship prompt configuration
+├── fastfetch/     Fastfetch system info display
+└── cava/          CAVA audio visualizer
 ```
 
 ## Components
@@ -17,25 +17,30 @@ A personalized dotfiles setup for Windows featuring the Rose Pine color theme ac
 ### Neovim
 - **NvChad v2.5** as the base framework
 - **Lazy.nvim** for plugin management
-- **Smear Cursor** for cursor blending
-- **LSP Config** - Language Server Protocol configuration
-- **Conform** - Code formatting
-- **Stylua** - Lua formatter
+- **Plugins**:
+  - `nvim-html-css` - HTML/CSS completion
+  - `conform.nvim` - Code formatting
+  - `nvim-lspconfig` - Language Server Protocol
+  - `nvim-lint` - Linting
+  - `smear-cursor.nvim` - Animated cursor blending
+  - `blink.cmp` - Completion (NvChad's default)
+  - `nvim-treesitter` - Syntax highlighting
+- **Treesitter parsers**: vim, lua, vimdoc, python, html, css, javascript, typescript
 
-### Wezterm
-- **Rosé Pine (Gogh)** color scheme
-- **Acrylic** background with 30% opacity
-- **JetBrainsMono Nerd Font**
-- Leader key: `Ctrl+Space`
-- Custom keybindings for window management
+### Starship Prompt
+- Custom Rose Pine-inspired prompt
+- **Supported languages**: C, Elixir, Elm, Go, Haskell, Java, Julia, Node.js, Nim, Rust, Scala, Python, Conda
+- **Features**: git branch/status, directory truncation with icons, 12-hour time format
 
 ### Fastfetch
-- Custom ASCII-styled system information display
-- Shows: user, host, OS, kernel, uptime, desktop environment, terminal, shell, disk, memory, network
+- Custom ASCII-styled system information display with Rose Pine colors
+- **Shows**: user, host, OS, kernel, uptime, desktop environment, terminal, shell, disk, memory, local IP, color palette
 
 ### CAVA Audio Visualizer
 - Gradient-based color visualization
-- Rose Pine-inspired gradient palette
+- **Rose Pine gradient palette**: pine (#31748f), foam (#9ccfd8), iris (#c4a7e7), rose (#ebbcba), gold (#f6c177), love (#eb6f92)
+- Noncurses output method
+- Stereo channel configuration
 
 ## Installation
 
@@ -49,11 +54,13 @@ New-Item -ItemType Directory -Path "$env:LOCALAPPDATA\nvim" -Force
 New-Item -ItemType Junction -Path "$env:LOCALAPPDATA\nvim" -Target "path\to\nvim"
 ```
 
-### Wezterm
-Copy the `wezterm` file to your Wezterm config directory:
+### Starship
 ```powershell
-# Default location
-Copy-Item wezterm "$env:USERPROFILE\AppData\Local\wezterm\wezterm.lua"
+# Install starship first
+winget install starship
+
+# Copy config
+Copy-Item starship\starship.toml "$env:APPDATA\starship\config.toml"
 ```
 
 ### Fastfetch
@@ -66,6 +73,9 @@ Copy-Item fastfetch\config.jsonc "$env:APPDATA\fastfetch\config.jsonc"
 
 # Copy logo
 Copy-Item fastfetch\logo.png "$env:APPDATA\fastfetch\logo.png"
+
+# Run fastfetch
+fastfetch
 ```
 
 ### CAVA
@@ -75,20 +85,22 @@ choco install cava
 
 # Copy config
 Copy-Item cava\config "$env:APPDATA\cava\config"
+
+# Run cava
+cava
 ```
 
-## Keybindings
+## Rose Pine Color Palette
 
-### Wezterm Leader (`Ctrl+Space`)
-| Key | Action |
-|-----|--------|
-| `o` | New tab |
-| `w` | Close tab |
-| `h` | Split horizontal |
-| `v` | Split vertical |
-| `f` | Toggle fullscreen |
-| `c` | Center window |
-| `m` | Hide window |
+| Color   | Hex Code  | Usage                      |
+|---------|-----------|----------------------------|
+| Overlay | `#26233a` | Backgrounds               |
+| Pine    | `#31748f` | Primary accent            |
+| Foam    | `#9ccfd8` | Secondary accent          |
+| Iris    | `#c4a7e7` | Tertiary accent           |
+| Rose    | `#ebbcba` | Text/paths                |
+| Gold    | `#f6c177` | Warnings/highlights      |
+| Love    | `#eb6f92` | Errors/important          |
 
 ## License
 
